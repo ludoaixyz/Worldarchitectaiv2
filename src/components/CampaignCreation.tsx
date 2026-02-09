@@ -2,18 +2,13 @@
 
 import { useState } from 'react'
 import { Button } from './ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
 import { Textarea } from './ui/textarea'
-import { Badge } from './ui/badge'
-import { Separator } from './ui/separator'
-import { Switch } from './ui/switch'
 import { 
   ArrowLeft, 
   ArrowRight, 
   Check, 
-  Sparkles, 
   Crown, 
   Brain, 
   Target,
@@ -40,26 +35,23 @@ type CreationStep = 'basic' | 'personas' | 'world' | 'companions' | 'review'
 const aiPersonas = [
   {
     id: 'narrative',
-    name: "Jeff's Narrative Flair",
-    description: 'Focuses on rich storytelling, dramatic moments, and emotional depth',
+    name: "Narrative Master",
+    description: 'Rich storytelling and dramatic moments',
     icon: BookOpen,
-    color: 'from-purple-500 to-pink-500',
     features: ['Rich descriptions', 'Character development', 'Emotional storytelling']
   },
   {
     id: 'mechanical',
-    name: "Jeff's Mechanical Precision",
-    description: 'Emphasizes rules accuracy, tactical combat, and strategic gameplay',
+    name: "Tactical Commander",
+    description: 'Rules accuracy and strategic gameplay',
     icon: Target,
-    color: 'from-blue-500 to-cyan-500',
     features: ['Rules accuracy', 'Tactical combat', 'Strategic depth']
   },
   {
     id: 'calibration',
-    name: "Jeff's Calibration Rigor",
-    description: 'Balances challenge perfectly and adapts to player preferences',
+    name: "Balance Keeper",
+    description: 'Perfect challenge balance',
     icon: Brain,
-    color: 'from-green-500 to-emerald-500',
     features: ['Perfect balance', 'Adaptive difficulty', 'Player-focused']
   }
 ]
@@ -76,72 +68,12 @@ export function CampaignCreation({ onCreateCampaign, onBack, theme }: CampaignCr
   })
 
   const steps = [
-    { id: 'basic', title: 'Campaign Basics', icon: BookOpen },
-    { id: 'personas', title: 'AI Personalities', icon: Crown },
-    { id: 'world', title: 'World Setting', icon: Globe },
-    { id: 'companions', title: 'Companions', icon: Users },
-    { id: 'review', title: 'Review & Create', icon: Check }
+    { id: 'basic', title: 'BASICS', icon: BookOpen },
+    { id: 'personas', title: 'AI MASTER', icon: Crown },
+    { id: 'world', title: 'WORLD', icon: Globe },
+    { id: 'companions', title: 'PARTY', icon: Users },
+    { id: 'review', title: 'START!', icon: Check }
   ]
-
-  const getThemeGradient = () => {
-    switch (theme) {
-      case 'light':
-        return 'bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100'
-      case 'dark':
-        return 'bg-gradient-to-br from-gray-950 via-gray-900 to-slate-900'
-      case 'fantasy':
-        return 'bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-900'
-      case 'dark-fantasy':
-        return 'bg-gradient-to-br from-gray-950 via-purple-950 to-indigo-950'
-      case 'cyberpunk':
-        return 'bg-gradient-to-br from-gray-950 via-cyan-950 to-blue-950'
-      default:
-        return 'bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-900'
-    }
-  }
-
-  const getAccentColors = () => {
-    switch (theme) {
-      case 'light':
-        return {
-          primary: 'from-blue-600 to-purple-600',
-          secondary: 'from-blue-500 to-purple-500',
-          accent: 'from-indigo-500 to-purple-500'
-        }
-      case 'dark':
-        return {
-          primary: 'from-blue-500 to-purple-500',
-          secondary: 'from-blue-400 to-purple-400',
-          accent: 'from-slate-400 to-gray-400'
-        }
-      case 'fantasy':
-        return {
-          primary: 'from-purple-600 to-pink-600',
-          secondary: 'from-purple-500 to-pink-500',
-          accent: 'from-purple-400 to-pink-400'
-        }
-      case 'dark-fantasy':
-        return {
-          primary: 'from-purple-700 to-red-600',
-          secondary: 'from-purple-600 to-red-500',
-          accent: 'from-purple-500 to-red-400'
-        }
-      case 'cyberpunk':
-        return {
-          primary: 'from-cyan-500 to-blue-500',
-          secondary: 'from-cyan-400 to-blue-400',
-          accent: 'from-cyan-300 to-blue-300'
-        }
-      default:
-        return {
-          primary: 'from-purple-600 to-pink-600',
-          secondary: 'from-purple-500 to-pink-500',
-          accent: 'from-purple-400 to-pink-400'
-        }
-    }
-  }
-
-  const colors = getAccentColors()
 
   const updateFormData = (updates: Partial<typeof formData>) => {
     setFormData(prev => ({ ...prev, ...updates }))
@@ -200,37 +132,32 @@ export function CampaignCreation({ onCreateCampaign, onBack, theme }: CampaignCr
   const renderBasicStep = () => (
     <div className="space-y-6">
       <div className="text-center mb-8">
-        <div className={`w-16 h-16 bg-gradient-to-r ${colors.primary} rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg`}>
-          <BookOpen className="w-8 h-8 text-white" />
+        <div className="inline-block bg-black border-4 border-black p-4 mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <BookOpen className="w-12 h-12 text-white" />
         </div>
-        <h2 className="text-2xl text-foreground mb-2">Campaign Basics</h2>
-        <p className="text-muted-foreground">Give your adventure a name and story</p>
+        <h2 className="text-4xl font-black uppercase tracking-tight mb-2">Campaign Basics</h2>
+        <p className="font-bold">Name your adventure!</p>
       </div>
 
       <div className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="title">Campaign Title</Label>
+          <Label className="font-black uppercase text-sm">Campaign Title</Label>
           <Input
-            id="title"
             value={formData.title}
             onChange={(e) => updateFormData({ title: e.target.value })}
             placeholder="Enter your campaign title..."
-            className="bg-card/50 backdrop-blur-sm border-border/50"
+            className="border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-bold"
           />
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="description">Campaign Description</Label>
+          <Label className="font-black uppercase text-sm">Campaign Description</Label>
           <Textarea
-            id="description"
             value={formData.description}
             onChange={(e) => updateFormData({ description: e.target.value })}
-            placeholder="Describe your campaign setting, theme, and goals..."
-            className="min-h-[120px] bg-card/50 backdrop-blur-sm border-border/50"
+            placeholder="Describe your campaign..."
+            className="min-h-[120px] border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-bold resize-none"
           />
-          <p className="text-sm text-muted-foreground">
-            This helps the AI understand the tone and style of your adventure
-          </p>
         </div>
       </div>
     </div>
@@ -239,64 +166,61 @@ export function CampaignCreation({ onCreateCampaign, onBack, theme }: CampaignCr
   const renderPersonasStep = () => (
     <div className="space-y-6">
       <div className="text-center mb-8">
-        <div className={`w-16 h-16 bg-gradient-to-r ${colors.primary} rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg`}>
-          <Crown className="w-8 h-8 text-white" />
+        <div className="inline-block bg-black border-4 border-black p-4 mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <Crown className="w-12 h-12 text-white" />
         </div>
-        <h2 className="text-2xl text-foreground mb-2">Choose Your AI Game Master</h2>
-        <p className="text-muted-foreground">Select one or more AI personalities to guide your adventure</p>
+        <h2 className="text-4xl font-black uppercase tracking-tight mb-2">Choose AI Master</h2>
+        <p className="font-bold">Select your game master style!</p>
       </div>
 
       <div className="grid gap-4">
         {aiPersonas.map((persona) => {
           const isSelected = formData.aiPersonas.includes(persona.name)
           return (
-            <Card 
+            <div 
               key={persona.id}
-              className={`cursor-pointer transition-all duration-300 hover:scale-[1.02] ${
+              className={`cursor-pointer transition-all ${
                 isSelected 
-                  ? 'bg-primary/20 border-primary/50 shadow-lg' 
-                  : 'bg-card/50 backdrop-blur-sm border-border/50 hover:bg-card/70'
+                  ? 'bg-black text-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]' 
+                  : 'bg-white border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]'
               }`}
               onClick={() => togglePersona(persona.name)}
             >
-              <CardContent className="p-6">
+              <div className="p-6">
                 <div className="flex items-start space-x-4">
-                  <div className={`w-12 h-12 bg-gradient-to-r ${persona.color} rounded-xl flex items-center justify-center shadow-lg`}>
-                    <persona.icon className="w-6 h-6 text-white" />
+                  <div className={`p-3 border-2 ${isSelected ? 'bg-white border-white' : 'bg-black border-black'}`}>
+                    <persona.icon className={`w-8 h-8 ${isSelected ? 'text-black' : 'text-white'}`} />
                   </div>
                   
                   <div className="flex-1">
                     <div className="flex items-center space-x-2 mb-2">
-                      <h3 className="text-lg text-card-foreground">{persona.name}</h3>
-                      {isSelected && <Check className="w-5 h-5 text-primary" />}
+                      <h3 className="text-xl font-black uppercase tracking-tight">{persona.name}</h3>
+                      {isSelected && <Check className="w-6 h-6" />}
                     </div>
                     
-                    <p className="text-muted-foreground mb-3">{persona.description}</p>
+                    <p className={`mb-3 font-bold text-sm ${isSelected ? 'text-gray-200' : 'text-gray-700'}`}>
+                      {persona.description}
+                    </p>
                     
                     <div className="flex flex-wrap gap-2">
                       {persona.features.map((feature, index) => (
-                        <Badge key={index} variant="outline" className="text-xs border-primary/30 text-primary">
-                          {feature}
-                        </Badge>
+                        <div key={index} className={`px-2 py-1 border-2 ${isSelected ? 'bg-white text-black border-white' : 'bg-black text-white border-black'}`}>
+                          <span className="text-xs font-black uppercase">{feature}</span>
+                        </div>
                       ))}
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           )
         })}
       </div>
 
-      <div className="bg-accent/10 border border-accent/20 rounded-lg p-4">
-        <div className="flex items-start space-x-3">
-          <Sparkles className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-          <div>
-            <p className="text-sm text-accent-foreground">
-              <span className="font-medium">Pro Tip:</span> You can select multiple personas! They'll work together to create a richer, more dynamic experience that adapts to different aspects of your adventure.
-            </p>
-          </div>
-        </div>
+      <div className="bg-yellow-300 border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+        <p className="text-sm font-black uppercase text-center">
+          💡 Select multiple for combined styles! 💡
+        </p>
       </div>
     </div>
   )
@@ -304,95 +228,82 @@ export function CampaignCreation({ onCreateCampaign, onBack, theme }: CampaignCr
   const renderWorldStep = () => (
     <div className="space-y-6">
       <div className="text-center mb-8">
-        <div className={`w-16 h-16 bg-gradient-to-r ${colors.primary} rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg`}>
-          <Globe className="w-8 h-8 text-white" />
+        <div className="inline-block bg-black border-4 border-black p-4 mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <Globe className="w-12 h-12 text-white" />
         </div>
-        <h2 className="text-2xl text-foreground mb-2">Choose Your World</h2>
-        <p className="text-muted-foreground">Select a setting for your adventure</p>
+        <h2 className="text-4xl font-black uppercase tracking-tight mb-2">Choose World</h2>
+        <p className="font-bold">Select your adventure setting!</p>
       </div>
 
       <div className="space-y-4">
-        {/* Default World Option */}
-        <Card 
-          className={`cursor-pointer transition-all duration-300 hover:scale-[1.02] ${
+        <div 
+          className={`cursor-pointer transition-all ${
             formData.useDefaultWorld 
-              ? 'bg-primary/20 border-primary/50 shadow-lg' 
-              : 'bg-card/50 backdrop-blur-sm border-border/50 hover:bg-card/70'
+              ? 'bg-black text-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]' 
+              : 'bg-white border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]'
           }`}
           onClick={() => updateFormData({ useDefaultWorld: true })}
         >
-          <CardContent className="p-6">
+          <div className="p-6">
             <div className="flex items-start space-x-4">
-              <div className={`w-12 h-12 bg-gradient-to-r ${colors.accent} rounded-xl flex items-center justify-center shadow-lg`}>
-                <Wand2 className="w-6 h-6 text-white" />
+              <div className={`p-3 border-2 ${formData.useDefaultWorld ? 'bg-white border-white' : 'bg-black border-black'}`}>
+                <Wand2 className={`w-8 h-8 ${formData.useDefaultWorld ? 'text-black' : 'text-white'}`} />
               </div>
               
               <div className="flex-1">
                 <div className="flex items-center space-x-2 mb-2">
-                  <h3 className="text-lg text-card-foreground">World of Assiah</h3>
-                  {formData.useDefaultWorld && <Check className="w-5 h-5 text-primary" />}
-                  <Badge variant="secondary" className="text-xs">Recommended</Badge>
+                  <h3 className="text-xl font-black uppercase tracking-tight">World of Assiah</h3>
+                  {formData.useDefaultWorld && <Check className="w-6 h-6" />}
+                  <div className="px-2 py-1 bg-yellow-300 border-2 border-black text-black text-xs font-black uppercase">
+                    Recommended
+                  </div>
                 </div>
                 
-                <p className="text-muted-foreground mb-3">
-                  A rich fantasy realm with ancient kingdoms, mystical forests, and legendary artifacts. 
-                  Perfect for classic D&D adventures with established lore and locations.
+                <p className={`mb-3 font-bold text-sm ${formData.useDefaultWorld ? 'text-gray-200' : 'text-gray-700'}`}>
+                  A rich fantasy realm with ancient kingdoms and legendary artifacts. Perfect for classic adventures!
                 </p>
-                
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="text-xs border-primary/30 text-primary">High Fantasy</Badge>
-                  <Badge variant="outline" className="text-xs border-primary/30 text-primary">Rich Lore</Badge>
-                  <Badge variant="outline" className="text-xs border-primary/30 text-primary">Multiple Kingdoms</Badge>
-                </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        {/* Custom World Option */}
-        <Card 
-          className={`cursor-pointer transition-all duration-300 hover:scale-[1.02] ${
+        <div 
+          className={`cursor-pointer transition-all ${
             !formData.useDefaultWorld 
-              ? 'bg-primary/20 border-primary/50 shadow-lg' 
-              : 'bg-card/50 backdrop-blur-sm border-border/50 hover:bg-card/70'
+              ? 'bg-black text-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]' 
+              : 'bg-white border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]'
           }`}
           onClick={() => updateFormData({ useDefaultWorld: false })}
         >
-          <CardContent className="p-6">
+          <div className="p-6">
             <div className="flex items-start space-x-4">
-              <div className={`w-12 h-12 bg-gradient-to-r ${colors.secondary} rounded-xl flex items-center justify-center shadow-lg`}>
-                <User className="w-6 h-6 text-white" />
+              <div className={`p-3 border-2 ${!formData.useDefaultWorld ? 'bg-white border-white' : 'bg-black border-black'}`}>
+                <User className={`w-8 h-8 ${!formData.useDefaultWorld ? 'text-black' : 'text-white'}`} />
               </div>
               
               <div className="flex-1">
                 <div className="flex items-center space-x-2 mb-2">
-                  <h3 className="text-lg text-card-foreground">Custom World</h3>
-                  {!formData.useDefaultWorld && <Check className="w-5 h-5 text-primary" />}
+                  <h3 className="text-xl font-black uppercase tracking-tight">Custom World</h3>
+                  {!formData.useDefaultWorld && <Check className="w-6 h-6" />}
                 </div>
                 
-                <p className="text-muted-foreground mb-3">
-                  Create your own unique world with custom lore, locations, and themes. 
-                  Perfect for specific campaign ideas or alternative settings.
+                <p className={`font-bold text-sm ${!formData.useDefaultWorld ? 'text-gray-200' : 'text-gray-700'}`}>
+                  Create your own unique world with custom lore and locations!
                 </p>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        {/* Custom World Description */}
         {!formData.useDefaultWorld && (
           <div className="space-y-2 mt-4">
-            <Label htmlFor="world-description">Describe Your World</Label>
+            <Label className="font-black uppercase text-sm">Describe Your World</Label>
             <Textarea
-              id="world-description"
               value={formData.customWorldDescription}
               onChange={(e) => updateFormData({ customWorldDescription: e.target.value })}
-              placeholder="Describe your world's setting, history, major locations, and unique elements..."
-              className="min-h-[120px] bg-card/50 backdrop-blur-sm border-border/50"
+              placeholder="Describe your world..."
+              className="min-h-[120px] border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-bold resize-none"
             />
-            <p className="text-sm text-muted-foreground">
-              Include details about the world's tone, technology level, magic system, and key locations
-            </p>
           </div>
         )}
       </div>
@@ -402,71 +313,58 @@ export function CampaignCreation({ onCreateCampaign, onBack, theme }: CampaignCr
   const renderCompanionsStep = () => (
     <div className="space-y-6">
       <div className="text-center mb-8">
-        <div className={`w-16 h-16 bg-gradient-to-r ${colors.primary} rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg`}>
-          <Users className="w-8 h-8 text-white" />
+        <div className="inline-block bg-black border-4 border-black p-4 mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <Users className="w-12 h-12 text-white" />
         </div>
-        <h2 className="text-2xl text-foreground mb-2">AI Companions</h2>
-        <p className="text-muted-foreground">Choose whether to include AI-controlled party members</p>
+        <h2 className="text-4xl font-black uppercase tracking-tight mb-2">AI Companions</h2>
+        <p className="font-bold">Add party members?</p>
       </div>
 
       <div className="space-y-4">
-        <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                <h3 className="text-lg text-card-foreground mb-2">Include AI Companions</h3>
-                <p className="text-muted-foreground">
-                  AI companions will join your party as NPCs, helping in combat and providing 
-                  roleplay opportunities. They adapt to your playstyle and the story.
-                </p>
-              </div>
-              <Switch
-                checked={formData.hasCompanions}
-                onCheckedChange={(checked) => updateFormData({ hasCompanions: checked })}
-              />
+        <div className="bg-white border-4 border-black p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              <h3 className="text-xl font-black uppercase tracking-tight mb-2">Include AI Companions</h3>
+              <p className="font-bold text-sm">
+                AI companions will join your party as NPCs, helping in combat and roleplay!
+              </p>
             </div>
-          </CardContent>
-        </Card>
+            <button
+              onClick={() => updateFormData({ hasCompanions: !formData.hasCompanions })}
+              className={`ml-4 w-20 h-10 border-4 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all ${
+                formData.hasCompanions ? 'bg-black' : 'bg-white'
+              }`}
+            >
+              <div className={`w-full h-full flex items-center ${formData.hasCompanions ? 'justify-end pr-1' : 'justify-start pl-1'}`}>
+                <div className={`w-6 h-6 border-2 ${formData.hasCompanions ? 'bg-white border-white' : 'bg-black border-black'}`} />
+              </div>
+            </button>
+          </div>
+        </div>
 
         {formData.hasCompanions && (
           <div className="grid md:grid-cols-2 gap-4">
-            <Card className="bg-accent/10 border-accent/20">
-              <CardContent className="p-4">
-                <div className="flex items-center space-x-3 mb-3">
-                  <Sword className="w-5 h-5 text-accent" />
-                  <h4 className="text-accent-foreground">Combat Support</h4>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  Companions provide tactical assistance in fights and can help balance encounters
-                </p>
-              </CardContent>
-            </Card>
+            <div className="bg-white border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+              <div className="flex items-center space-x-3 mb-3">
+                <Sword className="w-6 h-6" />
+                <h4 className="font-black uppercase">Combat Support</h4>
+              </div>
+              <p className="text-sm font-bold">
+                Companions help in tactical battles!
+              </p>
+            </div>
 
-            <Card className="bg-accent/10 border-accent/20">
-              <CardContent className="p-4">
-                <div className="flex items-center space-x-3 mb-3">
-                  <Shield className="w-5 h-5 text-accent" />
-                  <h4 className="text-accent-foreground">Story Integration</h4>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  Each companion has their own personality, goals, and character development
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-
-        <div className="bg-primary/10 border border-primary/20 rounded-lg p-4">
-          <div className="flex items-start space-x-3">
-            <Dice6 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-            <div>
-              <p className="text-sm text-primary">
-                <span className="font-medium">Note:</span> You can always add or remove companions later during your campaign. 
-                The AI will seamlessly integrate them into your ongoing story.
+            <div className="bg-white border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+              <div className="flex items-center space-x-3 mb-3">
+                <Shield className="w-6 h-6" />
+                <h4 className="font-black uppercase">Story Integration</h4>
+              </div>
+              <p className="text-sm font-bold">
+                Each has unique personality and goals!
               </p>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   )
@@ -474,86 +372,81 @@ export function CampaignCreation({ onCreateCampaign, onBack, theme }: CampaignCr
   const renderReviewStep = () => (
     <div className="space-y-6">
       <div className="text-center mb-8">
-        <div className={`w-16 h-16 bg-gradient-to-r ${colors.primary} rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg`}>
-          <Check className="w-8 h-8 text-white" />
+        <div className="inline-block bg-black border-4 border-black p-4 mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <Check className="w-12 h-12 text-white" />
         </div>
-        <h2 className="text-2xl text-foreground mb-2">Review Your Campaign</h2>
-        <p className="text-muted-foreground">Everything looks good? Let's start your adventure!</p>
+        <h2 className="text-4xl font-black uppercase tracking-tight mb-2">Review Campaign</h2>
+        <p className="font-bold">Ready to begin?</p>
       </div>
 
       <div className="space-y-4">
-        <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
+        <div className="bg-white border-4 border-black p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <div className="border-b-4 border-black pb-3 mb-4">
+            <h3 className="text-xl font-black uppercase tracking-tight flex items-center gap-2">
               <BookOpen className="w-5 h-5" />
-              <span>Campaign Details</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
+              Campaign Details
+            </h3>
+          </div>
+          <div className="space-y-3">
             <div>
-              <p className="text-sm text-muted-foreground">Title</p>
-              <p className="text-foreground">{formData.title}</p>
+              <p className="text-sm font-black uppercase text-gray-600">Title</p>
+              <p className="font-bold">{formData.title}</p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Description</p>
-              <p className="text-foreground">{formData.description}</p>
+              <p className="text-sm font-black uppercase text-gray-600">Description</p>
+              <p className="font-bold">{formData.description}</p>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
+        <div className="bg-white border-4 border-black p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <div className="border-b-4 border-black pb-3 mb-4">
+            <h3 className="text-xl font-black uppercase tracking-tight flex items-center gap-2">
               <Crown className="w-5 h-5" />
-              <span>AI Game Masters</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-2">
-              {formData.aiPersonas.map((persona) => (
-                <Badge key={persona} variant="secondary">
-                  {persona}
-                </Badge>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+              AI Game Masters
+            </h3>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {formData.aiPersonas.map((persona) => (
+              <div key={persona} className="px-3 py-1 bg-black text-white border-2 border-black font-black uppercase text-xs">
+                {persona}
+              </div>
+            ))}
+          </div>
+        </div>
 
-        <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
+        <div className="bg-white border-4 border-black p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <div className="border-b-4 border-black pb-3 mb-4">
+            <h3 className="text-xl font-black uppercase tracking-tight flex items-center gap-2">
               <Globe className="w-5 h-5" />
-              <span>World Setting</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {formData.useDefaultWorld ? (
-              <div className="flex items-center space-x-2">
-                <Badge variant="secondary">World of Assiah</Badge>
-                <span className="text-muted-foreground text-sm">Default fantasy world</span>
+              World
+            </h3>
+          </div>
+          {formData.useDefaultWorld ? (
+            <div className="px-3 py-1 bg-black text-white border-2 border-black font-black uppercase text-sm inline-block">
+              World of Assiah
+            </div>
+          ) : (
+            <div>
+              <div className="px-3 py-1 bg-black text-white border-2 border-black font-black uppercase text-sm inline-block mb-2">
+                Custom World
               </div>
-            ) : (
-              <div>
-                <Badge variant="secondary">Custom World</Badge>
-                <p className="text-muted-foreground text-sm mt-2">{formData.customWorldDescription}</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+              <p className="font-bold text-sm">{formData.customWorldDescription}</p>
+            </div>
+          )}
+        </div>
 
-        <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
+        <div className="bg-white border-4 border-black p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <div className="border-b-4 border-black pb-3 mb-4">
+            <h3 className="text-xl font-black uppercase tracking-tight flex items-center gap-2">
               <Users className="w-5 h-5" />
-              <span>Companions</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Badge variant={formData.hasCompanions ? "secondary" : "outline"}>
-              {formData.hasCompanions ? "AI Companions Enabled" : "Solo Adventure"}
-            </Badge>
-          </CardContent>
-        </Card>
+              Companions
+            </h3>
+          </div>
+          <div className={`px-3 py-1 border-2 border-black font-black uppercase text-sm inline-block ${formData.hasCompanions ? 'bg-black text-white' : 'bg-white'}`}>
+            {formData.hasCompanions ? 'AI Companions Enabled' : 'Solo Adventure'}
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -580,31 +473,35 @@ export function CampaignCreation({ onCreateCampaign, onBack, theme }: CampaignCr
   }
 
   return (
-    <div className={`min-h-screen ${getThemeGradient()} relative overflow-hidden`}>
-      {/* Background effects */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-20 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+      {/* Manga halftone background */}
+      <div className="absolute inset-0 opacity-5">
+        <div 
+          className="w-full h-full"
+          style={{
+            backgroundImage: 'radial-gradient(circle, black 1px, transparent 1px)',
+            backgroundSize: '5px 5px'
+          }}
+        />
       </div>
 
       <div className="relative z-10">
         {/* Header */}
-        <header className="border-b border-border/20 bg-card/10 backdrop-blur-md px-6 py-4">
-          <div className="flex items-center justify-between">
+        <header className="border-b-4 border-black bg-white shadow-[0px_4px_0px_0px_rgba(0,0,0,1)]">
+          <div className="container mx-auto px-6 py-4 flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Button 
                 variant="ghost" 
-                size="icon" 
                 onClick={onBack}
-                className="text-muted-foreground hover:text-foreground"
+                className="border-2 border-black p-2 hover:bg-gray-100"
               >
-                <ArrowLeft className="w-5 h-5" />
+                <ArrowLeft className="w-6 h-6" />
               </Button>
               
               <div>
-                <h1 className="text-foreground text-xl">Create New Campaign</h1>
-                <p className="text-muted-foreground text-sm">
-                  Step {getCurrentStepIndex() + 1} of {steps.length}
+                <h1 className="text-2xl font-black uppercase tracking-tight">Create Campaign</h1>
+                <p className="text-sm font-bold">
+                  Step {getCurrentStepIndex() + 1} / {steps.length}
                 </p>
               </div>
             </div>
@@ -617,21 +514,21 @@ export function CampaignCreation({ onCreateCampaign, onBack, theme }: CampaignCr
                 
                 return (
                   <div key={step.id} className="flex items-center space-x-2">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      isActive ? `bg-gradient-to-r ${colors.primary} text-white` :
-                      isCompleted ? 'bg-primary/20 text-primary' :
-                      'bg-muted/30 text-muted-foreground'
+                    <div className={`w-12 h-12 border-4 border-black flex items-center justify-center transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] ${
+                      isActive ? 'bg-black text-white scale-110' :
+                      isCompleted ? 'bg-white' :
+                      'bg-gray-200'
                     }`}>
                       {isCompleted ? (
-                        <Check className="w-4 h-4" />
+                        <Check className="w-6 h-6" />
                       ) : (
-                        <step.icon className="w-4 h-4" />
+                        <step.icon className="w-6 h-6" />
                       )}
                     </div>
                     
                     {index < steps.length - 1 && (
-                      <div className={`w-8 h-0.5 transition-all duration-300 ${
-                        isCompleted ? 'bg-primary' : 'bg-border/30'
+                      <div className={`w-8 h-2 ${
+                        isCompleted ? 'bg-black' : 'bg-gray-300'
                       }`} />
                     )}
                   </div>
@@ -643,53 +540,70 @@ export function CampaignCreation({ onCreateCampaign, onBack, theme }: CampaignCr
 
         {/* Main Content */}
         <main className="container mx-auto px-6 py-8 max-w-4xl">
-          <Card className="bg-card/30 backdrop-blur-sm border-border/50 shadow-2xl">
-            <CardContent className="p-8">
+          <div className="bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+            <div className="p-8">
               {renderStepContent()}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* Navigation */}
           <div className="flex items-center justify-between mt-8">
-            <Button
-              variant="outline"
+            <button
               onClick={prevStep}
               disabled={getCurrentStepIndex() === 0}
-              className="border-border/50 hover:bg-card/20"
+              className={`border-4 border-black font-black uppercase px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all ${
+                getCurrentStepIndex() === 0 
+                  ? 'bg-gray-300 cursor-not-allowed' 
+                  : 'bg-white hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
+              }`}
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Previous
-            </Button>
+              <div className="flex items-center gap-2">
+                <ArrowLeft className="w-5 h-5" />
+                Previous
+              </div>
+            </button>
 
-            <div className="flex md:hidden items-center space-x-1">
+            <div className="flex md:hidden items-center space-x-2">
               {steps.map((_, index) => (
                 <div
                   key={index}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    getCurrentStepIndex() >= index ? 'bg-primary' : 'bg-border/30'
+                  className={`w-3 h-3 border-2 border-black ${
+                    getCurrentStepIndex() >= index ? 'bg-black' : 'bg-white'
                   }`}
                 />
               ))}
             </div>
 
             {currentStep === 'review' ? (
-              <Button
+              <button
                 onClick={handleCreate}
                 disabled={!canProceed()}
-                className={`bg-gradient-to-r ${colors.primary} hover:opacity-90 shadow-lg hover:shadow-xl transition-all duration-300`}
+                className={`bg-black text-white border-4 border-black font-black uppercase px-8 py-3 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all ${
+                  !canProceed() 
+                    ? 'opacity-50 cursor-not-allowed' 
+                    : 'hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
+                }`}
               >
-                <Play className="w-4 h-4 mr-2" />
-                Start Adventure
-              </Button>
+                <div className="flex items-center gap-2">
+                  <Play className="w-5 h-5" />
+                  Start Adventure!
+                </div>
+              </button>
             ) : (
-              <Button
+              <button
                 onClick={nextStep}
                 disabled={!canProceed()}
-                className={`bg-gradient-to-r ${colors.secondary} hover:opacity-90`}
+                className={`bg-black text-white border-4 border-black font-black uppercase px-6 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all ${
+                  !canProceed() 
+                    ? 'opacity-50 cursor-not-allowed' 
+                    : 'hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
+                }`}
               >
-                Next
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
+                <div className="flex items-center gap-2">
+                  Next
+                  <ArrowRight className="w-5 h-5" />
+                </div>
+              </button>
             )}
           </div>
         </main>

@@ -3,6 +3,7 @@ import { Button } from './ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Badge } from './ui/badge'
 import { Plus, Users, Calendar, Sword, Shield, Crown, BookOpen, Settings, Play } from 'lucide-react'
+import { ImageWithFallback } from './figma/ImageWithFallback'
 
 interface Campaign {
   id: string
@@ -14,6 +15,7 @@ interface Campaign {
   lastPlayed: string
   status: 'active' | 'recruiting' | 'completed'
   difficulty: 'beginner' | 'intermediate' | 'advanced'
+  imageUrl: string
 }
 
 const mockCampaigns: Campaign[] = [
@@ -26,7 +28,8 @@ const mockCampaigns: Campaign[] = [
     maxPlayers: 6,
     lastPlayed: '2 days ago',
     status: 'active',
-    difficulty: 'intermediate'
+    difficulty: 'intermediate',
+    imageUrl: 'https://images.unsplash.com/photo-1756565717914-2d3730b83484?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbmltZSUyMGZhbnRhc3klMjBjaGFyYWN0ZXIlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NzA2NDQ5MTF8MA&ixlib=rb-4.1.0&q=80&w=1080'
   },
   {
     id: '2', 
@@ -37,7 +40,8 @@ const mockCampaigns: Campaign[] = [
     maxPlayers: 5,
     lastPlayed: '1 week ago',
     status: 'recruiting',
-    difficulty: 'advanced'
+    difficulty: 'advanced',
+    imageUrl: 'https://images.unsplash.com/photo-1613487971624-24f87ffdbfc5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbmltZSUyMGN5YmVycHVuayUyMGNoYXJhY3RlciUyMG5lb258ZW58MXx8fHwxNzcwNjQ0OTExfDA&ixlib=rb-4.1.0&q=80&w=1080'
   },
   {
     id: '3',
@@ -48,21 +52,10 @@ const mockCampaigns: Campaign[] = [
     maxPlayers: 6,
     lastPlayed: '3 days ago',
     status: 'active',
-    difficulty: 'beginner'
+    difficulty: 'beginner',
+    imageUrl: 'https://images.unsplash.com/photo-1768797646664-0c33d518facf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbmltZSUyMGRhcmslMjBmYW50YXN5JTIwY2hhcmFjdGVyfGVufDF8fHx8MTc3MDY0NDkxMXww&ixlib=rb-4.1.0&q=80&w=1080'
   }
 ]
-
-const themeColors = {
-  fantasy: 'bg-gradient-to-br from-green-500/20 to-emerald-600/20 border-green-500/30',
-  cyberpunk: 'bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border-cyan-500/30',
-  'dark-fantasy': 'bg-gradient-to-br from-purple-500/20 to-red-600/20 border-purple-500/30'
-}
-
-const statusColors = {
-  active: 'bg-green-500/20 text-green-300 border-green-500/30',
-  recruiting: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
-  completed: 'bg-gray-500/20 text-gray-300 border-gray-500/30'
-}
 
 const difficultyIcons = {
   beginner: Shield,
@@ -74,124 +67,197 @@ export function CampaignList() {
   const [campaigns] = useState<Campaign[]>(mockCampaigns)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <div className="container mx-auto px-6 py-8">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-4xl text-white mb-2">Your Campaigns</h1>
-            <p className="text-purple-200">Choose your adventure or create a new one</p>
+    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+      {/* Manga halftone background */}
+      <div className="absolute inset-0 opacity-5">
+        <div 
+          className="w-full h-full"
+          style={{
+            backgroundImage: 'radial-gradient(circle, black 1px, transparent 1px)',
+            backgroundSize: '5px 5px'
+          }}
+        />
+      </div>
+
+      {/* Speed lines in background */}
+      <div className="absolute inset-0 overflow-hidden opacity-5">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute h-[2px] bg-black"
+            style={{
+              width: `${150 + Math.random() * 300}px`,
+              top: `${Math.random() * 100}%`,
+              left: '-150px',
+              transform: `rotate(${-5 + Math.random() * 10}deg)`,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container mx-auto px-6 py-8 relative z-10">
+        {/* Header - Manga style */}
+        <div className="mb-8">
+          <div className="bg-white border-4 border-black p-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div>
+                <h1 
+                  className="text-5xl font-black uppercase tracking-tighter mb-2"
+                  style={{
+                    color: 'white',
+                    WebkitTextStroke: '3px black',
+                    paintOrder: 'stroke fill',
+                  }}
+                >
+                  YOUR CAMPAIGNS
+                </h1>
+                <p className="text-lg font-bold">Select your adventure or create a new one!</p>
+              </div>
+              <Button 
+                className="bg-black border-4 border-black text-white font-black uppercase px-6 py-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+              >
+                <Plus className="w-5 h-5 mr-2" />
+                NEW CAMPAIGN
+              </Button>
+            </div>
           </div>
-          <Button 
-            size="lg"
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-          >
-            <Plus className="w-5 h-5 mr-2" />
-            Create New Campaign
-          </Button>
         </div>
 
-        {/* Campaign Grid */}
+        {/* Campaign Grid - Manga panel style */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {campaigns.map((campaign) => {
             const DifficultyIcon = difficultyIcons[campaign.difficulty]
             
             return (
-              <Card 
+              <div 
                 key={campaign.id} 
-                className={`bg-black/60 backdrop-blur-sm border hover:bg-black/70 transition-all duration-300 hover:scale-105 ${themeColors[campaign.theme]}`}
+                className="bg-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all"
               >
-                <CardHeader className="pb-3">
-                  <div className="flex justify-between items-start mb-2">
-                    <CardTitle className="text-white text-xl">{campaign.title}</CardTitle>
-                    <Badge className={`${statusColors[campaign.status]} capitalize`}>
-                      {campaign.status}
-                    </Badge>
+                {/* Campaign Image with manga effects */}
+                <div className="relative border-b-4 border-black overflow-hidden bg-gray-100">
+                  <div className="aspect-[4/3] relative">
+                    <ImageWithFallback
+                      src={campaign.imageUrl}
+                      alt={campaign.title}
+                      className="w-full h-full object-cover grayscale"
+                    />
+                    
+                    {/* Manga screentone overlay */}
+                    <div className="absolute inset-0 opacity-20" style={{
+                      backgroundImage: 'radial-gradient(circle, black 1.5px, transparent 1.5px)',
+                      backgroundSize: '8px 8px'
+                    }} />
+
+                    {/* Status badge - manga style */}
+                    <div className="absolute top-3 right-3">
+                      <div className={`
+                        bg-${campaign.status === 'active' ? 'green' : campaign.status === 'recruiting' ? 'yellow' : 'gray'}-300 
+                        border-2 border-black px-3 py-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]
+                      `}>
+                        <span className="font-black text-xs uppercase">{campaign.status}</span>
+                      </div>
+                    </div>
+
+                    {/* Difficulty icon */}
+                    <div className="absolute top-3 left-3 bg-white border-2 border-black p-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                      <DifficultyIcon className="w-5 h-5" />
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-purple-200">
-                    <DifficultyIcon className="w-4 h-4" />
-                    <span className="capitalize">{campaign.difficulty}</span>
-                    <span className="text-purple-300/50">•</span>
-                    <span className="capitalize">{campaign.theme.replace('-', ' ')}</span>
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  {/* Title with manga font style */}
+                  <h3 className="text-2xl font-black uppercase tracking-tight mb-2 border-b-4 border-black pb-2">
+                    {campaign.title}
+                  </h3>
+                  
+                  <div className="flex items-center gap-2 mb-4 text-sm font-bold">
+                    <span className="uppercase">{campaign.difficulty}</span>
+                    <span>•</span>
+                    <span className="uppercase">{campaign.theme.replace('-', ' ')}</span>
                   </div>
-                </CardHeader>
-                
-                <CardContent className="space-y-4">
-                  <p className="text-purple-100 text-sm leading-relaxed line-clamp-3">
+
+                  <p className="text-sm leading-relaxed mb-4 font-medium line-clamp-3">
                     {campaign.description}
                   </p>
-                  
-                  <div className="flex justify-between items-center text-sm">
-                    <div className="flex items-center gap-2 text-purple-200">
-                      <Users className="w-4 h-4" />
-                      <span>{campaign.players}/{campaign.maxPlayers} players</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-purple-200">
-                      <Calendar className="w-4 h-4" />
-                      <span>{campaign.lastPlayed}</span>
+
+                  {/* Stats box */}
+                  <div className="bg-gray-100 border-2 border-black p-3 mb-4">
+                    <div className="flex justify-between items-center text-sm font-bold">
+                      <div className="flex items-center gap-2">
+                        <Users className="w-4 h-4" />
+                        <span>{campaign.players}/{campaign.maxPlayers} PLAYERS</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4" />
+                        <span>{campaign.lastPlayed.toUpperCase()}</span>
+                      </div>
                     </div>
                   </div>
-                  
-                  <div className="flex gap-2 pt-2">
-                    <Button 
-                      variant="default" 
-                      size="sm" 
-                      className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
-                    >
-                      <Play className="w-4 h-4 mr-2" />
-                      {campaign.status === 'recruiting' ? 'Join' : 'Continue'}
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="border-purple-500/30 text-purple-200 hover:bg-purple-500/20"
-                    >
-                      <Settings className="w-4 h-4" />
-                    </Button>
+
+                  {/* Action buttons */}
+                  <div className="flex gap-2">
+                    <button className="flex-1 bg-black border-2 border-black text-white font-black uppercase py-3 px-4 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition-all">
+                      <div className="flex items-center justify-center gap-2">
+                        <Play className="w-4 h-4" />
+                        {campaign.status === 'recruiting' ? 'JOIN' : 'CONTINUE'}
+                      </div>
+                    </button>
+                    <button className="bg-white border-2 border-black p-3 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition-all">
+                      <Settings className="w-5 h-5" />
+                    </button>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             )
           })}
           
-          {/* Create New Campaign Card */}
-          <Card className="bg-black/40 backdrop-blur-sm border-dashed border-purple-500/50 hover:border-purple-400/70 hover:bg-black/50 transition-all duration-300 flex items-center justify-center min-h-[300px] cursor-pointer group">
-            <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-purple-600/20 rounded-full flex items-center justify-center group-hover:bg-purple-600/30 transition-colors">
-                <Plus className="w-8 h-8 text-purple-300" />
+          {/* Create New Campaign Card - manga style */}
+          <div className="bg-white border-4 border-dashed border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer group">
+            <div className="flex flex-col items-center justify-center p-12 h-full min-h-[400px]">
+              {/* Halftone background */}
+              <div className="absolute inset-0 opacity-10" style={{
+                backgroundImage: 'radial-gradient(circle, black 2px, transparent 2px)',
+                backgroundSize: '10px 10px'
+              }} />
+              
+              <div className="relative z-10 text-center">
+                <div className="w-20 h-20 mx-auto mb-6 bg-black border-4 border-black flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all">
+                  <Plus className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-3xl font-black uppercase tracking-tight mb-3">
+                  START NEW
+                </h3>
+                <h4 className="text-4xl font-black uppercase tracking-tight mb-4">
+                  ADVENTURE!
+                </h4>
+                <p className="font-bold text-sm">Create a custom campaign with AI</p>
               </div>
-              <h3 className="text-white text-xl mb-2">Start New Adventure</h3>
-              <p className="text-purple-200 text-sm">Create a custom campaign with AI assistance</p>
             </div>
-          </Card>
+          </div>
         </div>
 
-        {/* Quick Actions */}
+        {/* Quick Actions - Manga style */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Button 
-            variant="outline" 
-            size="lg" 
-            className="border-purple-500/30 text-purple-200 hover:bg-purple-500/20 h-16"
-          >
-            <BookOpen className="w-6 h-6 mr-3" />
-            Browse Templates
-          </Button>
-          <Button 
-            variant="outline" 
-            size="lg" 
-            className="border-purple-500/30 text-purple-200 hover:bg-purple-500/20 h-16"
-          >
-            <Users className="w-6 h-6 mr-3" />
-            Find Players
-          </Button>
-          <Button 
-            variant="outline" 
-            size="lg" 
-            className="border-purple-500/30 text-purple-200 hover:bg-purple-500/20 h-16"
-          >
-            <Crown className="w-6 h-6 mr-3" />
-            AI Game Master
-          </Button>
+          <button className="bg-white border-4 border-black font-black uppercase py-4 px-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+            <div className="flex items-center justify-center gap-3">
+              <BookOpen className="w-6 h-6" />
+              BROWSE TEMPLATES
+            </div>
+          </button>
+          <button className="bg-white border-4 border-black font-black uppercase py-4 px-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+            <div className="flex items-center justify-center gap-3">
+              <Users className="w-6 h-6" />
+              FIND PLAYERS
+            </div>
+          </button>
+          <button className="bg-white border-4 border-black font-black uppercase py-4 px-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+            <div className="flex items-center justify-center gap-3">
+              <Crown className="w-6 h-6" />
+              AI GAME MASTER
+            </div>
+          </button>
         </div>
       </div>
     </div>
